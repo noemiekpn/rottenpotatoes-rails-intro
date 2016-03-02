@@ -5,10 +5,10 @@
   %thead
     %tr
       %th 
-	%a Movie Title
+        <a href="#"> Movie Title </a>
       %th Rating
       %th 
-	%a Release Date
+        %a#release_date_header Release Date
       %th More Info
   %tbody
     - @movies.each do |movie|
