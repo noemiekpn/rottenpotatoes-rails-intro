@@ -12,7 +12,6 @@ class MoviesController < ApplicationController
 
   def index
     @sort_mode = params[:sort_by]
-    @all_ratings = ['G', 'PG', 'PG-13', 'R']
     @movies = Movie.all.order("#{@sort_mode}")
   end
 
