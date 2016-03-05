@@ -5,9 +5,6 @@
   Include:
   - @all_ratings.each do |rating|
     = rating
-    
-    -# Rails syntax: check_box_tag(name, value = "1", checked = false, options = {}) 
-    
     = check_box_tag "ratings[#{rating}]", 1, (if @checked_ratings[rating] then true end), :id => "ratings_#{rating}"
   
   = submit_tag 'Refresh', :id => "ratings_submit"
