@@ -42,11 +42,8 @@ class MoviesController < ApplicationController
     end
     
     # Filter the movies according to selection
-    if @checked_ratings.empty?
-      @movies = Movie.all.order("#{@sort_mode}")
-    else
-      @movies = Movie.where(:rating => @checked_ratings.keys).order("#{@sort_mode}")
-    end
+    @movies = Movie.where(:rating => @checked_ratings.keys).order("#{@sort_mode}")
+  
   end
 
   def new
