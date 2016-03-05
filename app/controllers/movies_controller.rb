@@ -11,15 +11,28 @@ class MoviesController < ApplicationController
   end
 
   def index
-  	# Get the sort mode (either title or release_date)
-    @sort_mode = params[:sort_by]
-    
     # Get the list of rating values from db
     @all_ratings = Movie.ratings_list
+  	
+  	# If receiving new sort params, then update session and sort mode values
+    # If not then used the session's saved value
+    if params[:sort_by]
+      session[:sort_by] = @sort_mode = params[:sort_by]
+    else
+      @sort_mode = session[:sort_by]
+    end
     
-    # Get the list of user selected ratings
-    @checked_ratings = params[:ratings]
-    if !@checked_ratings then @checked_ratings = Hash.new end
+  	# If receiving new rating params, then update session and sort mode values
+    # If not then used the session's saved value
+    if params[:ratings]
+      session[:ratings] = @checked_ratings = params[:ratings]
+    else 
+      @checked_ratings = session[:ratings]
+    end
+    
+    # Checked ratings is a hash that maps the ratings to booleans
+    # Different from @sort_mode, we depend on it to display data; it must be initialized
+	if !@checked_ratings then @checked_ratings = Hash.new end
     
     # Filter the movies according to selection
     if @checked_ratings.empty?
