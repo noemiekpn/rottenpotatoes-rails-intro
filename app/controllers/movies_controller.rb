@@ -21,6 +21,17 @@ class MoviesController < ApplicationController
     else
       @sort_mode = session[:sort_by]
     end
+
+    # Checked ratings is a hash that maps the ratings to booleans
+    # Different from @sort_mode, we depend on it to display data; it must be initialized
+	if !@checked_ratings then @checked_ratings = Hash.new end
+    
+    # If no rating params checked, default all checked
+    if params[:ratings].nil?
+      @all_ratings.each do |rating|
+      	@checked_ratings[rating] = 1;
+      end
+    end
     
   	# If receiving new rating params, then update session and sort mode values
     # If not then used the session's saved value
@@ -29,10 +40,6 @@ class MoviesController < ApplicationController
     else 
       @checked_ratings = session[:ratings]
     end
-    
-    # Checked ratings is a hash that maps the ratings to booleans
-    # Different from @sort_mode, we depend on it to display data; it must be initialized
-	if !@checked_ratings then @checked_ratings = Hash.new end
     
     # Filter the movies according to selection
     if @checked_ratings.empty?

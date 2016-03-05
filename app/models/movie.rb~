@@ -1,7 +1,7 @@
 class Movie < ActiveRecord::Base
 
 # A class method that returns the appropriate values for ratings
-  def self.all_ratings
-    ['G', 'PG', 'PG-13', 'R']
+  def self.ratings_list
+    Movie.select(:rating).uniq
   end
 end
