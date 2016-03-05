@@ -32,10 +32,12 @@ class MoviesController < ApplicationController
 
     # Checked ratings is a hash that maps the ratings to booleans
     # Different from @sort_mode, we depend on it to display data; it must be initialized
-	if !@checked_ratings then @checked_ratings = Hash.new end
-    #  @all_ratings.each do |rating|
-    #  	@checked_ratings[rating] = 1;
-    #  end
+	if !@checked_ratings
+	  @checked_ratings = Hash.new
+      @all_ratings.each do |rating|
+        @checked_ratings[rating] = 1;
+      end
+    end
     
     # Filter the movies according to selection
     if !@checked_ratings
